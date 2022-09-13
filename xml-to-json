@@ -3,16 +3,18 @@
 import json
 import sys
 import xmltodict
+import fileinput
 
 
 def main():
     if len(sys.argv) != 1:
         print("Usage: xml-to-json")
-
-    xml_string = sys.stdin.read()
-    data = xmltodict.parse(xml_string)
-    print(json.dumps(data))
-
+    for line in fileinput.input():
+        try:
+            data = xmltodict.parse(line)
+            print(json.dumps(data))
+        except Exception as e:
+            pass
 
 if __name__ == "__main__":
     main()
